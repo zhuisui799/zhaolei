@@ -1,0 +1,332 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset=utf-8/>
+    <title>2016年赵雷演唱会轨迹图</title>
+    <meta name='viewport' content='initial-scale=1,maximum-scale=1,user-scalable=no'/>
+    <script src='src/mapbox.js'></script>
+    <link href='src/mapbox.css' rel='stylesheet'/>
+    <script src='src/mapbox-gl.js'></script>
+    <script src='src/jquery-1.4.1.js'></script>
+
+
+    <link href='src/mapbox-gl.css' rel='stylesheet'/>
+   
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+        }
+
+        #map {
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            width: 100%;
+        }
+		#lefttop{
+		    position: absolute;
+			z-index:999;
+			bottom:32px;
+			right:10px;
+			width:100px;
+			height:80px;
+			border:0.6px solid #9a8fff;
+			background: rgba(208, 222, 214, 0.5);
+			
+		}
+		
+
+        .my_polyline {
+            stroke: #30ff36;
+            bold: true;
+            fill: none;
+            opacity: 0.8;
+            stroke-width: 3.5;
+            smoothFactor: 3;
+        }
+
+        .overlay {
+            position: absolute;
+            top: 32px;
+            left:5px;
+        }
+
+        .overlay button {
+            font: 600 12px/20px 'Helvetica Neue', Arial, Helvetica, sans-serif;
+            background-color: #3386c0;
+            color: #fff;
+            display: inline-block;
+            margin: 0;
+            position: absolute;
+            left: 40px;
+            width: 80px;
+            height: 30px;
+            padding: 5px 10px;
+            border: none;
+            cursor: pointer;
+            border-radius: 3px;
+        }
+
+        .overlay button:hover {
+            background-color: #4ea0da;
+        }
+    </style>
+</head>
+<body>
+
+
+<div id='map'></div>
+<div id='title' style="display:none;position: absolute;left:45px;top:8px;color:#ff4336;font-weight:bold;opacity:0.5">Anotherweekend</div>
+
+<div class='overlay'>
+    <button id='replay' style="display:none">轨迹回放</button>
+</div>
+
+<div id='lefttop'  style="z-index:999">
+<div class='pic' style="padding:1px 1px">
+<a href="http://weibo.com/ttarticle/p/show?id=2309404004104220371245" target="_blank"><img src="pic.jpg" style="width:100%;height:100%"/><a>
+</div>
+<div class='pic1' style="vertical-align:margin:;iddle;text-align:center;color:#ff4336;font-weight:bold;font-family:Arial;font-size:10px">赵雷2016巡演</div>
+</div>
+
+<script>
+
+      //初始化地图
+	    window.setTimeout(function(){
+		   document.getElementById('title').style.display='block';
+		}, 500);
+        L.mapbox.accessToken = 'pk.eyJ1IjoidGhlZmxvd2VycyIsImEiOiJjaXI0amV4d3owMWYxMjNubTdpM3BwZGw5In0.JXX8-EYnD2ZtFUQQDY97Vw';
+        var map = L.mapbox.map('map', 'mapbox.streets')
+                .setView([30.61, 114.3], 5);
+       /* map.on('ready', function () {
+            new L.Control.MiniMap(L.mapbox.tileLayer('mapbox.outdoors'))
+                    .addTo(map);
+        })*/
+
+        //featureLayer111用于存储marker
+        var featureLayer111 = L.mapbox.featureLayer()
+                .loadURL('location1.json')
+                .addTo(map);
+        //console.log(featureLayer111);
+
+        featureLayer111.on('mouseover', function (e) {
+            e.layer.openPopup();
+        });
+        featureLayer111.on('mouseout', function (e) {
+            e.layer.closePopup();
+        });
+
+        //polyline用于存储线条
+         var polyline = L.polyline([], {className: 'my_polyline'}).addTo(map);
+
+        var marker = L.marker([0, 0], {
+            icon: L.mapbox.marker.icon({
+                'marker-color': '#8470FF'
+            }),
+            title: "赵小雷",
+            opacity: 0.8
+        }).addTo(map);
+
+
+
+
+    
+    document.getElementById('replay').addEventListener('click', function() {
+	  // alert("hehe");
+	  // console.log("test");
+	   polyline.setLatLngs(L.latLng(0,0));
+	   //console.log(polyline);
+	   //map.removeLayer(polyline);
+	  
+	   initial(500);
+	   
+	   
+	})
+    initial(5000);
+    function initial(waitingtime) {
+        //请求json
+        var totalPoints = [];
+        $.ajax({
+            dataType: "json",
+            url: "route.json",
+            success: function (data) {
+                var totalline = data.flights;
+
+                for (var i = 0; i < totalline.length; i++) {
+                    var flight = totalline[i];
+                    var from = flight[0];
+                    var to = flight[1];
+
+                    var startlat = from[0];
+                    var startlon = from[1];
+
+                    var endlat = to[0];
+                    var endlon = to[1];
+
+                    var points_this = getCurveByTwoPoints(startlat, startlon, endlat, endlon);
+
+                    for (jj = 0; jj < points_this.length; jj++) {
+                        var signal = points_this[jj];
+                        totalPoints.push(signal);
+
+                    }
+
+                }
+            }
+        })
+
+
+        
+        var num = 0;
+        window.setTimeout(function () {
+            map.setView([totalPoints[0][0], totalPoints[0][1]], 5);
+        }, waitingtime/1.5)
+        window.setTimeout(add, waitingtime);
+
+
+        function add() {
+           // console.log(totalPoints.length);
+
+
+            polyline.addLatLng(
+                    L.latLng(
+                            totalPoints[num][0],
+                            totalPoints[num][1]));
+
+
+            marker.setLatLng(L.latLng(
+                    totalPoints[num][0],
+                    totalPoints[num][1]));
+
+
+            featureLayer111.eachLayer(function (markerhere) {
+                        var markjson = markerhere.toGeoJSON();
+                        var coordinates = markjson.geometry.coordinates;
+                        if (totalPoints[num][0] == coordinates[1] && totalPoints[num][1] == coordinates[0]) {
+                            markerhere.openPopup();
+							if(coordinates[0]==113.26)
+							{
+							   window.setTimeout(function(){
+							      markerhere.closePopup();
+								    map.setView([30.61, 114.3],5);
+								  
+							   }, 1000);
+							}
+							//console.log(coordinates);
+
+                        }
+                        else {
+                            markerhere.closePopup();
+                        }
+
+
+                    }
+            )
+
+
+            // Pan the map along with where the line is being added.
+            map.setView([totalPoints[num][0], totalPoints[num][1]], 5);
+
+            // Continue to draw and pan the map by calling `add()`
+            // until `pointsAdded` reaches 360.
+            if (num < 713) {
+                //console.log(totalPoints[51][0]);
+                if ((num) % 51 == 0) {
+                    window.setTimeout(add, 1000);
+                }
+                else {
+                    window.setTimeout(add, 50);
+
+                }
+                num++;
+				document.getElementById('replay').style.display='none';
+            }
+			else if(num=713)
+			{
+			     //document.getElementById('replay').disabled=false;
+                 document.getElementById('replay').style.display='block';
+			}
+
+        }
+
+
+        function getCurveByTwoPoints(x1, x2, x3, x4) {
+
+
+            var B1 = function (x) {
+                return 1 - 2 * x + x * x;
+            };
+            var B2 = function (x) {
+                return 2 * x - 2 * x * x;
+            };
+            var B3 = function (x) {
+                return x * x;
+            };
+
+            curveCoordinates = [];
+
+            var count = 50; // 曲线是由一些小的线段组成的，这个表示这个曲线所有到的折线的个数
+            var isFuture = false;
+            var t, h, h2, lat3, lng3, j, t2;
+            var LnArray = [];
+            var i = 0;
+            var inc = 0;
+
+
+            var lat1 = parseFloat(x1);  //x1
+            var lat2 = parseFloat(x3);   //x3
+            var lng1 = parseFloat(x2);   //x2
+            var lng2 = parseFloat(x4);   //x4
+
+            // 计算曲线角度的方法
+            if (lng2 > lng1) {
+                if (parseFloat(lng2 - lng1) > 180) {
+                    if (lng1 < 0) {
+                        lng1 = parseFloat(180 + 180 + lng1);
+                    }
+                }
+            }
+
+            if (lng1 > lng2) {
+                if (parseFloat(lng1 - lng2) > 180) {
+                    if (lng2 < 0) {
+                        lng2 = parseFloat(180 + 180 + lng2);
+                    }
+                }
+            }
+            j = 0;
+            t2 = 0;
+            if (lat2 == lat1) {
+                t = 0;
+                h = lng1 - lng2;
+            } else if (lng2 == lng1) {
+                t = Math.PI / 2;
+                h = lat1 - lat2;
+            } else {
+                t = Math.atan((lat2 - lat1) / (lng2 - lng1));
+                h = (lat2 - lat1) / Math.sin(t);
+            }
+            if (t2 == 0) {
+                t2 = (t + (Math.PI / 5));
+            }
+            h2 = h / 2;
+            lng3 = h2 * Math.cos(t2) + lng1;
+            lat3 = h2 * Math.sin(t2) + lat1;
+
+            for (i = 0; i < count + 1; i++) {
+                curveCoordinates.push([(lat1 * B1(inc) + lat3 * B2(inc) + lat2 * B3(inc)),
+                            (lng1 * B1(inc) + lng3 * B2(inc)) + lng2 * B3(inc)]
+                );
+                inc = inc + (1 / count);
+            }
+            return curveCoordinates;
+        }
+
+    }
+
+</script>
+
+
+</body>
+</html>

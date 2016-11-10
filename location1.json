@@ -1,0 +1,245 @@
+﻿{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "properties": {
+        "title": " 1.天津 9月25日",
+        "marker-color": "#7DC8B0",
+        
+        "marker-symbol": "music"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          117.19,
+          39.09
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "title": "2.南京 10月15日",
+        "marker-color": "#f86767",
+        
+        "marker-symbol": "music"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          118.78,
+          32.06
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "title": "3.大连 10月22日",
+        "marker-color": "#7DC8B0",
+        
+        "marker-symbol": "music"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          121.6,
+          38.94
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "title": "4.郑州 10月28日",
+        "marker-color": "#7DC8B0",
+        
+        "marker-symbol": "music"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          113.58,
+          34.74
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "title": "5.西安 10月30日",
+        "marker-color": "#7DC8B0",
+        
+        "marker-symbol": "music"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          108.94,
+          34.23
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "title": "6.成都 11月5日",
+        "marker-color": "#f86767",
+        
+        "marker-symbol": "music"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          104.04,
+          30.66
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "title": "7.合肥 11月12日",
+        "marker-color": "#7DC8B0",
+        
+        "marker-symbol": "music"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          117.2,
+          31.82
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "title": "8.上海 11月19日",
+        "marker-color": "#f86767",
+        
+        "marker-symbol": "music"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          121.44,
+          31.22
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "title": "9.深圳 11月26日",
+        "marker-color": "#f86767",
+        
+        "marker-symbol": "music"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          114.05,
+          22.54
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "title": "10.武汉 12月3日",
+        "marker-color": "#f86767",
+        
+        "marker-symbol": "music"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          114.3,
+          30.61
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "title": "11.厦门 12月10日",
+        "marker-color": "#f86767",
+        
+        "marker-symbol": "music"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          118.09,
+          24.49
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "title": "12.北京 12月17日",
+        "marker-color": "#f86767",
+        
+        "marker-symbol": "music"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          116.41,
+          39.9
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "title": "13.重庆 12月24日",
+        "marker-color": "#f86767",
+        
+        "marker-symbol": "music"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          106.57,
+          29.59
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "title": "14.杭州 1月7日",
+        "marker-color": "#7DC8B0",
+        
+        "marker-symbol": "music"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          120.15,
+          30.29
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "title": "15.广州 1月14日",
+        "marker-color": "#f86767",
+        
+        "marker-symbol": "music"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          113.26,
+          23.13
+        ]
+      }
+    }
+  ]
+}
